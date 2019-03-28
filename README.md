@@ -1,28 +1,50 @@
-# Bearer
+# BearerRails
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/bearer`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Bearer rails helpers to integrate webhooks
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your rails application's Gemfile:
 
 ```ruby
-gem 'bearer'
+gem 'bearer-rails'
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install bearer
 
 ## Usage
 
-TODO: Write usage instructions here
+1. Setup your bearer account on [app.bearer.sh](https://app.bearer.sh/)
+2. store bearer config in rails initializer `config/initializer/bearer.rb`
+
+```ruby
+# in config/initializers/bearer.rb
+    Bearer::Configuration.setup do |config|
+      config.api_key = "secret_api_key" # copy and paste the `API key` from https://app.bearer.sh/keys
+      config.client_id = "client_id" # copy and paste the `Client Id` from https://app.bearer.sh/keys
+      config.secret = "secret" # copy and paste the `Encryption Key` from https://app.beaerer.sh/keys
+    end
+```
+
+3. setup the routes, and mount BeaerRails::Webhook rack application
+
+```ruby
+    # in config/routes.rb
+    Rails.application.routes.draw do
+      # ...
+      mount BearerRails::Webhooks.new, at: '/webhooks'
+    end
+```
+
+4. define the class which would consume the webhook. Please visit https://app.beaerer.sh to check how to build your own integration. The assumption is you have correctly created integration in Bearer called 'github-attach-pull-request'
+
+```ruby
+    # create a class in `app/webhooks/github_attach_pull_request.rb
+    class GithubAttachPullRequest < BearerRails::Webhooks::Base
+      def call
+        # at this point you have access to the following data: [org_id, integration_id, body]
+        consume_webhook_service(body)
+      end
+    end
+```
 
 ## Development
 
@@ -32,8 +54,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/bearer. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/bearer/bearer-rails. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## Code of Conduct
 
-Everyone interacting in the Bearer project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/bearer/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Bearer project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/bearer/bearer-rails/blob/master/CODE_OF_CONDUCT.md).
