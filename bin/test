@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+set -euo pipefail
+
+IFS=$'\n\t'
+set -vx
+
+bundle exec rake spec

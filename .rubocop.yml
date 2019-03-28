@@ -1,0 +1,40 @@
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - '**/vendor/**/*'
+    - '**/vendor/**/.*'
+    - 'spec/**/*'
+    - 'bearer.gemspec'
+    - '.jenkins/**/*'
+    - 'bin/test'
+    - 'bin/console'
+    - 'bin/setup'
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Metrics/LineLength:
+  Exclude:
+    - 'config/**/*'
+    - 'spec/**/*'
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - 'app/admin/**/*'
+
+Metrics/MethodLength:
+  Max: 20
+
+Style/Documentation:
+  Enabled: false
+
+Layout/AlignHash:
+  Enabled: false
+
+Layout/AlignParameters:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
