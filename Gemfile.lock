@@ -1,15 +1,11 @@
 PATH
-  remote: ../bearer-ruby
-  specs:
-    bearer (0.1.1)
-
-PATH
   remote: .
   specs:
     bearer-rails (0.1.1)
       activesupport (~> 5.2.3)
-      openssl
-      rack
+      bearer (~> 0.1.1)
+      openssl (~> 2.1.2)
+      rack (~> 2.0.6)
 
 GEM
   remote: https://rubygems.org/
@@ -23,6 +19,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     ast (2.4.0)
     backport (0.3.0)
+    bearer (0.1.1)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.2)
@@ -114,11 +111,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bearer!
   bearer-rails!
   bundler (~> 1.16)
-  overcommit
-  pry
+  overcommit (~> 0.46.0)
+  pry (~> 0.12.2)
   rake (~> 10.0)
   rspec (~> 3.0)
   rubocop (~> 0.65.0)

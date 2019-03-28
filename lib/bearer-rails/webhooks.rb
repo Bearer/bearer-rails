@@ -17,26 +17,33 @@ module BearerRails
 
     def call(env)
       req = Rack::Request.new(env)
-      org_id, integration_id = get_integration_id(req) #=> 4lic3-github-attach-pull-request
+      org_id, integration_id = get_integration_id(req) # 4lic3, github_attach_pull_request
+      origin = get_origin(req)
+      sha = get_sha(req)
 
-      response = self.class.invoke(
+      result = self.class.invoke(
         integration_id: integration_id,
         org_id: org_id,
         origin: origin,
         sha: sha,
-        body: req.body
+        body: req.body.string
       )
 
-      [response.status, { "Content-Type" => "application/json" }, [response.payload]]
+      return [200, { "Content-Type" => "application/json" }, ["{\"ack\":\"ok\"}"]] if result
+
+      [422, { "Content-Type" => "application/json" }, [""]]
+    rescue StandardError => e
+      [500, { "Content-Type" => "application/json" }, ["{\"error\":#{e.to_json}}"]]
     end
 
     private
 
     def get_bearer_header(req, header)
       rack_header = "HTTP_#{header.tr('-', '_')}"
-      raise "Missing #{header} header" unless req[rack_header]
+      header_value = req.env[rack_header]
+      raise "Missing #{header} header" unless header_value
 
-      req[rack_header]
+      header_value
     end
 
     def get_integration_id(req)

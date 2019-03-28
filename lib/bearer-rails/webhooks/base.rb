@@ -13,5 +13,5 @@ class BearerRails::Webhooks
     def bearer_invoke(function_name, params: {})
       Bearer.call("#{org_id}-#{integration_id}", function_name, params: params)
     end
-end
+  end
 end

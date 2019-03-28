@@ -6,6 +6,5 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem "webmock"
 gem "solargraph", group: :development
-gem "bearer", path: '../bearer-ruby'
 # Specify your gem's dependencies in bearer.gemspec
 gemspec
