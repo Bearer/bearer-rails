@@ -1,14 +1,15 @@
 AllCops:
   TargetRubyVersion: 2.5
   Exclude:
-    - '**/vendor/**/*'
-    - '**/vendor/**/.*'
-    - 'spec/**/*'
-    - 'bearer.gemspec'
-    - '.jenkins/**/*'
-    - 'bin/test'
-    - 'bin/console'
-    - 'bin/setup'
+    - "**/vendor/**/*"
+    - "**/vendor/**/.*"
+    - "spec/**/*"
+    - "bearer-rails.gemspec"
+    - "lib/bearer-rails.rb"
+    - ".jenkins/**/*"
+    - "bin/test"
+    - "bin/console"
+    - "bin/setup"
 
 Style/StringLiterals:
   Enabled: true
@@ -16,13 +17,13 @@ Style/StringLiterals:
 
 Metrics/LineLength:
   Exclude:
-    - 'config/**/*'
-    - 'spec/**/*'
+    - "config/**/*"
+    - "spec/**/*"
   Max: 120
 
 Metrics/BlockLength:
   Exclude:
-    - 'app/admin/**/*'
+    - "app/admin/**/*"
 
 Metrics/MethodLength:
   Max: 20
