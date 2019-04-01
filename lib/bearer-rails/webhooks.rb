@@ -2,7 +2,6 @@
 
 require "rack/request"
 require_relative "./webhooks/bearer_invoke"
-require_relative "./webhooks/base"
 
 module BearerRails
   class Webhooks
@@ -17,11 +16,13 @@ module BearerRails
 
     def call(env)
       req = Rack::Request.new(env)
-      org_id, integration_id = get_integration_id(req) # 4lic3, github_attach_pull_request
+      handler = get_bearer_header(req, BEARER_SCENARIO_HANDLER)
+      org_id, integration_id = get_integration_id(handler) # 4lic3, github_attach_pull_request
       origin = get_origin(req)
       sha = get_sha(req)
 
       result = self.class.invoke(
+        bearer_handler: handler,
         integration_id: integration_id,
         org_id: org_id,
         origin: origin,
@@ -46,9 +47,8 @@ module BearerRails
       header_value
     end
 
-    def get_integration_id(req)
-      header = get_bearer_header(req, BEARER_SCENARIO_HANDLER)
-      org_id, *integration_title = header.split("-")
+    def get_integration_id(handler)
+      org_id, *integration_title = handler.split("-")
       [org_id, integration_title.join("_")]
     end
 

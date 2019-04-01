@@ -12,11 +12,17 @@ module BearerRails
     module ClassMethods
       include ActiveSupport::Inflector
 
-      def invoke(integration_id:, org_id:, origin:, sha:, body:)
+      def invoke(bearer_handler:, integration_id:, org_id:, origin:, sha:, body:)
         check_sha(sha, body)
         check_origin(origin)
-        klass = constantize(classify(integration_id))
-        klass.new(integration_id: integration_id, org_id: org_id, body: body).call
+
+        records_to_invoke = BearerRails::Webhook.registry.select do |record|
+          record[:handler] == bearer_handler
+        end
+
+        records_to_invoke.map do |record|
+          record[:class].new(integration_id: integration_id, org_id: org_id, body: body).call
+        end
       end
 
       def check_sha(sha, body)
