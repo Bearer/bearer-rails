@@ -29,9 +29,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "activesupport", "~> 5.2.3"
-  spec.add_dependency "rack", "~> 2.0.6"
-  spec.add_dependency "openssl", "~> 2.1.2"
   spec.add_dependency "bearer", "~> 0.1.1"
+  spec.add_dependency "openssl", "~> 2.1.2"
+  spec.add_dependency "rack", "~> 2.0.6"
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "overcommit", "~> 0.46.0"

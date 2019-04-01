@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
-class BearerRails::Webhooks
-  class Base
+module BearerRails
+  module Webhook
+    def self.registry
+      @registry ||= []
+    end
+
+    def self.included(base)
+      base.extend(ClassMethods)
+    end
+
     attr_reader :integration_id, :org_id, :body
 
     def initialize(integration_id:, org_id:, body:)
@@ -12,6 +20,12 @@ class BearerRails::Webhooks
 
     def bearer_invoke(function_name, params: {})
       Bearer.call("#{org_id}-#{integration_id}", function_name, params: params)
+    end
+
+    module ClassMethods
+      def integration_handler(handler)
+        BearerRails::Webhook.registry.push(class: self, handler: handler)
+      end
     end
   end
 end
