@@ -40,7 +40,7 @@ gem 'bearer-rails'
     # create a class in `app/webhooks/github_attach_pull_request.rb
     class GithubAttachPullRequest
       include BearerRails::Webhook
-      # this has to match your integration name https://app.beaerer.sh
+      # this has to match your integration name https://app.bearer.sh
       integration_handler "4l1c3-github-attach-pull-request"
 
       def call
