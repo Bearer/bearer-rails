@@ -38,12 +38,28 @@ gem 'bearer-rails'
 
 ```ruby
     # create a class in `app/webhooks/github_attach_pull_request.rb
-    class GithubAttachPullRequest < BearerRails::Webhooks::Base
+    class GithubAttachPullRequest
+      include BearerRails::Webhook
+      # this has to match your integration name https://app.beaerer.sh
+      integration_handler "4l1c3-github-attach-pull-request"
+
       def call
         # at this point you have access to the following data: [org_id, integration_id, body]
         consume_webhook_service(body)
       end
     end
+```
+
+5. as the classes are lazy loaded in development.rb change the `eager_load` setting to load all the classes on startup (eager loading is set to true in production env anyway)
+
+```ruby
+# config/environments/development.rb
+
+Rails.application.configure do
+# ...
+  config.eager_load = true
+# ...
+end`
 ```
 
 ## Development
