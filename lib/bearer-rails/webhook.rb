@@ -10,16 +10,15 @@ module BearerRails
       base.extend(ClassMethods)
     end
 
-    attr_reader :integration_id, :org_id, :body
+    attr_reader :buid, :body
 
-    def initialize(integration_id:, org_id:, body:)
-      @integration_id = integration_id
-      @org_id = org_id
+    def initialize(buid:, body:)
+      @buid = buid
       @body = body
     end
 
     def bearer_invoke(function_name, params: {})
-      Bearer.call("#{org_id}-#{integration_id}", function_name, params: params)
+      Bearer.call(buid, function_name, params: params)
     end
 
     module ClassMethods

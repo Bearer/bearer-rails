@@ -16,15 +16,12 @@ module BearerRails
 
     def call(env)
       req = Rack::Request.new(env)
-      handler = get_bearer_header(req, BEARER_INTEGRATION_HANDLER)
-      org_id, integration_id = get_integration_id(handler) # 4lic3, github_attach_pull_request
+      buid = get_bearer_header(req, BEARER_INTEGRATION_HANDLER)
       origin = get_origin(req)
       sha = get_sha(req)
 
       result = self.class.invoke(
-        bearer_handler: handler,
-        integration_id: integration_id,
-        org_id: org_id,
+        buid: buid,
         origin: origin,
         sha: sha,
         body: req.body.string
@@ -45,11 +42,6 @@ module BearerRails
       raise "Missing #{header} header" unless header_value
 
       header_value
-    end
-
-    def get_integration_id(handler)
-      org_id, *integration_title = handler.split("-")
-      [org_id, integration_title.join("_")]
     end
 
     def get_sha(req)
