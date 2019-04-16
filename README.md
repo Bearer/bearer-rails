@@ -1,6 +1,6 @@
-# BearerRails
+# Bearer Rails
 
-Bearer rails helpers to integrate webhooks
+Bearer Rails helpers to integrate WebHooks
 
 ## Installation
 
@@ -12,19 +12,19 @@ gem 'bearer-rails'
 
 ## Usage
 
-1. Setup your bearer account on [app.bearer.sh](https://app.bearer.sh/)
-2. store bearer config in rails initializer `config/initializer/bearer.rb`
+1. Setup your Bearer account on [app.bearer.sh](https://app.bearer.sh/)
+2. Store Bearer config in Rails initializer `config/initializer/bearer.rb`
 
 ```ruby
 # in config/initializers/bearer.rb
     Bearer::Configuration.setup do |config|
       config.api_key = "secret_api_key" # copy and paste the `API key` from https://app.bearer.sh/keys
       config.client_id = "client_id" # copy and paste the `Client Id` from https://app.bearer.sh/keys
-      config.secret = "secret" # copy and paste the `Encryption Key` from https://app.beaerer.sh/keys
+      config.secret = "secret" # copy and paste the `Encryption Key` from https://app.bearer.sh/keys
     end
 ```
 
-3. setup the routes, and mount BeaerRails::Webhook rack application
+3. Setup the routes, and mount BearerRails::Webhook Rack application
 
 ```ruby
     # in config/routes.rb
@@ -34,14 +34,14 @@ gem 'bearer-rails'
     end
 ```
 
-4. define the class which would consume the webhook. Please visit https://app.beaerer.sh to check how to build your own integration. The assumption is you have correctly created integration in Bearer called 'github-attach-pull-request'
+4. Define the class which would consume the WebHook. Please visit https://app.bearer.sh to check how to build your own integration. The assumption is you have correctly created integration in Bearer with an UUID '4l1c3'
 
 ```ruby
     # create a class in `app/webhooks/github_attach_pull_request.rb
     class GithubAttachPullRequest
       include BearerRails::Webhook
       # this has to match your integration name https://app.bearer.sh
-      integration_handler "4l1c3-github-attach-pull-request"
+      integration_handler "4l1c3"
 
       def call
         # at this point you have access to the following data: [org_id, integration_id, body]
@@ -50,7 +50,7 @@ gem 'bearer-rails'
     end
 ```
 
-5. as the classes are lazy loaded in development.rb change the `eager_load` setting to load all the classes on startup (eager loading is set to true in production env anyway)
+5. As the classes are lazy loaded in development.rb change the `eager_load` setting to load all the classes on startup (eager loading is set to true in production env anyway)
 
 ```ruby
 # config/environments/development.rb
