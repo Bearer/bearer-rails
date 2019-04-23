@@ -5,8 +5,8 @@ require_relative "./webhooks/bearer_invoke"
 
 module BearerRails
   class Webhooks
-    BEARER_SCENARIO_HANDLER = "BEARER-SCENARIO-HANDLER"
-    private_constant :BEARER_SCENARIO_HANDLER
+    BEARER_INTEGRATION_HANDLER = "BEARER-INTEGRATION-HANDLER"
+    private_constant :BEARER_INTEGRATION_HANDLER
     BEARER_SHA = "BEARER-SHA"
     private_constant :BEARER_SHA
     BEARER_ORIGIN = "BEARER-ORIGIN"
@@ -16,7 +16,7 @@ module BearerRails
 
     def call(env)
       req = Rack::Request.new(env)
-      handler = get_bearer_header(req, BEARER_SCENARIO_HANDLER)
+      handler = get_bearer_header(req, BEARER_INTEGRATION_HANDLER)
       org_id, integration_id = get_integration_id(handler) # 4lic3, github_attach_pull_request
       origin = get_origin(req)
       sha = get_sha(req)
