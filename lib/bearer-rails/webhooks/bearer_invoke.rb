@@ -12,20 +12,18 @@ module BearerRails
     module ClassMethods
       include ActiveSupport::Inflector
 
-      # rubocop:disable Metrics/ParameterLists
-      def invoke(bearer_handler:, integration_id:, org_id:, origin:, sha:, body:)
+      def invoke(buid:, origin:, sha:, body:)
         check_sha(sha, body)
         check_origin(origin)
 
         records_to_invoke = BearerRails::Webhook.registry.select do |record|
-          record[:handler] == bearer_handler
+          record[:handler] == buid
         end
 
         records_to_invoke.map do |record|
-          record[:class].new(integration_id: integration_id, org_id: org_id, body: body).call
+          record[:class].new(buid: buid, body: body).call
         end
       end
-      # rubocop:enable Metrics/ParameterLists
 
       def check_sha(sha, body)
         calculated_sha = OpenSSL::HMAC.hexdigest(digest, Bearer::Configuration.secret, body)

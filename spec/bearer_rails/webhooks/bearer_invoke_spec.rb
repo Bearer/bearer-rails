@@ -19,16 +19,14 @@ RSpec.describe BearerRails::BearerInvoke do
   it "allows to invoke class call based on convention" do
     TestIntId = Class.new do
       include BearerRails::Webhook
-      integration_handler :handler
+      integration_handler "buid"
       def call
         "whatever"
       end
     end
     expect(
       my_class.invoke(
-        bearer_handler: :handler,
-        integration_id: "test_int_id",
-        org_id: "org-id",
+        buid: "buid",
         origin: "origin",
         sha: sha,
         body: "hello"
