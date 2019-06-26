@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bearer-rails (0.3.0)
+    bearer-rails (1.1.0)
       activesupport (~> 5.2.3)
       bearer (= 0.2.0)
       openssl (~> 2.1.2)
