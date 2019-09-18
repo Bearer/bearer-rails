@@ -18,8 +18,8 @@ gem 'bearer-rails'
 ```ruby
 # in config/initializers/bearer.rb
     Bearer::Configuration.setup do |config|
-      config.api_key = "secret_api_key" # copy and paste the `API key` from https://app.bearer.sh/keys
-      config.client_id = "client_id" # copy and paste the `Client Id` from https://app.bearer.sh/keys
+      config.api_key = "BEARER_SECRET_KEY" # copy and paste the `Secret Key` from https://app.bearer.sh/keys
+      config.client_id = "BEARER_PUBLISHABLE_KEY" # copy and paste the `Publishable Key` from https://app.bearer.sh/keys
       config.secret = "secret" # copy and paste the `Encryption Key` from https://app.bearer.sh/keys
     end
 ```
