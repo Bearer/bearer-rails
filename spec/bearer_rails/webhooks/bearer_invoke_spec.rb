@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe BearerRails::BearerInvoke do
   before do
-    Bearer::Configuration.secret = "yZ23GR954QN4/QpvJ+OI78Iz/YrAeylM"
+    Bearer::Configuration.encryption_key = "yZ23GR954QN4/QpvJ+OI78Iz/YrAeylM"
   end
 
   let(:my_class) do

@@ -17,10 +17,6 @@ module BearerRails
       @body = body
     end
 
-    def bearer_invoke(function_name, params: {})
-      Bearer.call(buid, function_name, params: params)
-    end
-
     module ClassMethods
       def integration_handler(handler)
         BearerRails::Webhook.registry.push(class: self, handler: handler)

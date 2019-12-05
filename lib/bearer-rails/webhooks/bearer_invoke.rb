@@ -26,7 +26,7 @@ module BearerRails
       end
 
       def check_sha(sha, body)
-        calculated_sha = OpenSSL::HMAC.hexdigest(digest, Bearer::Configuration.secret, body)
+        calculated_sha = OpenSSL::HMAC.hexdigest(digest, Bearer::Configuration.encryption_key, body)
         throw "Signature invalid" if sha != calculated_sha
       end
 

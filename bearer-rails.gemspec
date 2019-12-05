@@ -28,8 +28,8 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "activesupport", "~> 5.2.3"
-  spec.add_dependency "bearer", "~> 1.0.0"
+  spec.add_dependency "activesupport"
+  spec.add_dependency "bearer", "~> 2.0.0"
   spec.add_dependency "openssl", "~> 2.1.2"
   spec.add_dependency "rack", "~> 2.0.6"
 
